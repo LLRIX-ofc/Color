@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Request Counter</title>
+</head>
+<body>
+    <h1>Vote Requests Sent: <span id="counter">0</span></h1>
+    <script>
+        let counter = 0;
+        const counterElement = document.getElementById("counter");
+        const url = "https://hyperplexed.io/api/events/1aAC/incr";
+        const headers = {
+            "Connection": "keep-alive",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not(A:Brand)\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
+            "Content-Type": "application/json",
+            "sec-ch-ua-mobile": "?0",
+            "Accept": "*/*",
+            "Origin": "https://hyperplexed.io",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cookie": "__Secure-authjs.callback-url=https%3A%2F%2Fhyperplexed.io; anon=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJ4cjdtVzVxZEloRTMiLCJpYXQiOjE3NDAwNjAzNzMxMzMsInN0YXR1cyI6InZlcmlmaWVkIiwiZXhwIjoxNzcxNjE3OTczfQ.1OeeZJITIVV2ehd3seuEkDBGKyTfZr6Znn2-Wo5EOEU",
+            "Accept-Encoding": "gzip, deflate"
+        };
+        const payload = JSON.stringify({ "option": "purple" });
+
+        function sendRequest() {
+            fetch(url, {
+                method: "POST",
+                headers: headers,
+                body: payload
+            }).then(response => response.text())
+              .then(() => {
+                  counter++;
+                  counterElement.textContent = counter;
+                  setTimeout(sendRequest, 0); // Continue sending requests as fast as possible without freezing browser
+              })
+              .catch(error => console.error("Error:", error));
+        }
+
+        sendRequest();
+    </script>
+</body>
+</html>
