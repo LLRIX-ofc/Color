@@ -12,24 +12,19 @@
         const counterElement = document.getElementById("counter");
         const url = "https://hyperplexed.io/api/events/1aAC/vote";
         const headers = {
-            "Host": "hyperplexed.io",
             "Connection": "keep-alive",
-            "sec-ch-ua-platform": "Windows",
+            "sec-ch-ua-platform": "\"Windows\"",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
-            "sec-ch-ua": '"Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"',
+            "sec-ch-ua": "\"Not(A:Brand)\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
             "Content-Type": "application/json",
             "sec-ch-ua-mobile": "?0",
             "Accept": "*/*",
             "Origin": "https://hyperplexed.io",
-            "Sec-Fetch-Site": "same-origin",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Dest": "empty",
-            "Referer": "https://hyperplexed.io/events/live-thumbnail",
             "Accept-Language": "en-US,en;q=0.9",
-            "Cookie": "__Secure-authjs.callback-url=https%3A%2F%2Fhyperplexed.io; anon=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJ4cjdtVzVxZEloRTMiLCJpYXQiOjE3NDAwNjAzNzMxMzMsInN0YXR1cyI6InZlcmlmaWVkIiwiZXhwIjoxNzcxNjE3OTczfQ.1OeeZJITIVV2ehd3seuEkDBGKyTfZr6Znn2-Wo5EOEU; ph_phc_7cCG2GnbCBDmTxEaLstiei57EWg0pwgs6fxBtoNlQbi_posthog=%7B%22distinct_id%22%3A%22019523ae-1bb4-7cb3-90f8-6f5f2f2d77e8%22%2C%22%24sesid%22%3A%5B1740060804681%2C%22019523ae-1bb2-7c78-b892-6b8be7d7cd71%22%2C1740060367794%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fhyperplexed.io%2Fevents%2Flive-thumbnail%22%7D%7D",
+            "Cookie": "__Secure-authjs.callback-url=https%3A%2F%2Fhyperplexed.io; anon=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJ4cjdtVzVxZEloRTMiLCJpYXQiOjE3NDAwNjAzNzMxMzMsInN0YXR1cyI6InZlcmlmaWVkIiwiZXhwIjoxNzcxNjE3OTczfQ.1OeeZJITIVV2ehd3seuEkDBGKyTfZr6Znn2-Wo5EOEU",
             "Accept-Encoding": "gzip, deflate"
         };
-        const payload = JSON.stringify({"option": "purple"});
+        const payload = JSON.stringify({ "option": "purple" });
 
         function sendRequest() {
             fetch(url, {
@@ -40,7 +35,7 @@
               .then(() => {
                   counter++;
                   counterElement.textContent = counter;
-                  sendRequest(); // Continue sending requests as fast as possible
+                  setTimeout(sendRequest, 0); // Continue sending requests as fast as possible without freezing browser
               })
               .catch(error => console.error("Error:", error));
         }
